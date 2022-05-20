@@ -15,7 +15,7 @@ fn endpoint(path: impl Display) -> String {
 pub enum YTSError {
     RequestError(String),
     DeserializationError(String),
-    BadResponse,
+    BadResponse(String),
 }
 
 pub struct Client {
@@ -44,7 +44,7 @@ impl Client {
             Ok(x) => match x.json::<YTSResponse<A>>().await {
                 Ok(x) => match x.data {
                     Some(x) => Ok(x),
-                    _ => Err(YTSError::BadResponse),
+                    _ => Err(YTSError::BadResponse(x.status_message)),
                 },
                 Err(e) => return Err(YTSError::DeserializationError(e.to_string())),
             },

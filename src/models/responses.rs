@@ -1,12 +1,13 @@
 use serde::Deserialize;
 
-use super::Movie;
+use super::{GetMoviesRequest, Movie, Request};
 
 pub(crate) trait Response {}
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct YTSResponse<T> {
     pub data: Option<T>,
+    pub status_message: String,
 }
 
 #[derive(Debug, Deserialize, Clone)]

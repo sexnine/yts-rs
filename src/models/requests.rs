@@ -2,6 +2,8 @@ use serde::Serialize;
 
 use super::{Quality, SortBy};
 
+pub(crate) trait Request {}
+
 #[derive(Debug, Serialize, Clone)]
 pub struct GetMoviesRequest {
     pub limit: Option<u32>,
@@ -14,6 +16,8 @@ pub struct GetMoviesRequest {
     #[serde(flatten)]
     pub sort: Option<SortBy>,
 }
+
+impl Request for GetMoviesRequest {}
 
 impl GetMoviesRequest {
     pub fn new() -> Self {
